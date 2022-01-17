@@ -1,6 +1,6 @@
 ﻿namespace V4_e
 {
-    partial class Form1
+    partial class MainInterface
     {
         /// <summary>
         /// Required designer variable.
