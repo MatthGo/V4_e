@@ -16,7 +16,7 @@ namespace V4_e
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainInterface());
+            Application.Run(new GUI());
         }
     }
 }

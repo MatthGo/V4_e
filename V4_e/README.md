@@ -3,4 +3,27 @@
 17.01.2022, Matthias G.
 ---
 
+Program fulfill following conditions:
 
+*** Scenario ***
+
+-	User is able to specify which text file he want to process
+-	all words within the file will be extracted and counted
+-	the result is a two - column table, sorted by number of the occurrences of the words (Word	Occurrence)
+-	User can always abort the process.
+
+*** Technical ***
+
+-	program reads an ANSI text file specified by user
+-	words are seperated by char.(set splitBy when calling function) ==> function ParsingLogic.parse(..., char splitBy)
+-	Class Parsinglogic
+	-	Call parse(string toParse, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess, char splitBy)
+	-	toParse: the String you want to Parse
+	-	UnsortedOutput: holds the result
+	-	cancelCurrentProcess: if true, function returns current result in UnsortedOutput
+	-	splitby: Define the Character the String is split by
+
+-	Class ComputeOutput
+	-	call to get a array with strings ==> getOutput(string path, ref bool cancelCurrentProcess)
+	-	path: holds path to file
+	-	cancelCurrentProcess: if true, function returns current sorted result
