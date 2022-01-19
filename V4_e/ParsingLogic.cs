@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace V4_e
 {
@@ -9,11 +10,80 @@ namespace V4_e
         public ParsingLogic() {
         
         }
+
+        /// <summary>
+        /// Call ParseFile with path, char splitting and a cancellation token. <br/>
+        /// Returns Dictionary unsortedOutput.
+        /// </summary>
+        public Dictionary<string, int> ParseFile(string path, char splitBy, ref bool cancelCurrentProcess)
+        {
+            Dictionary<string, int> unsortedOutput = new Dictionary<string, int>();
+            try
+            {
+                GUI.gui.SetProgressBarValue(0);
+
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(path, System.Text.Encoding.Default))
+                {
+                    System.IO.Stream baseStream = sr.BaseStream;
+                    long length = baseStream.Length;
+
+                    string toParse = String.Empty;
+
+                    while ((toParse = sr.ReadLine()) != null)
+                    {
+                        if (cancelCurrentProcess) { break; }
+
+                        GUI.gui.SetProgressBarValue(value: Convert.ToInt32((double)baseStream.Position / length * 100));
+                        Parse(toParse, splitBy, unsortedOutput, ref cancelCurrentProcess);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GUI.gui.ReportError(ex.Message);
+            }
+
+            return unsortedOutput;
+        }
+
+        /// <summary>
+        /// Call ParseFile with path, char splitting, a cancellation token and max length of processed strings <br/>
+        /// Returns Dictionary unsortedOutput.
+        /// </summary>
+        public Dictionary<string, int> ParseFile(string path, char splitBy, ref bool cancelCurrentProcess, ref int maxStringLength)
+        {
+            Dictionary<string, int> unsortedOutput = new Dictionary<string, int>();
+            try
+            {
+                GUI.gui.SetProgressBarValue(0);
+                
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(path, System.Text.Encoding.Default))
+                {
+                    System.IO.Stream baseStream = sr.BaseStream;
+                    long length = baseStream.Length;
+
+                    string toParse = String.Empty;
+
+                    while ((toParse = sr.ReadLine()) != null)
+                    {
+                        if (cancelCurrentProcess) { break; }
+
+                        GUI.gui.SetProgressBarValue(value: Convert.ToInt32((double)baseStream.Position / length * 100));
+                        Parse(toParse, splitBy, unsortedOutput, ref cancelCurrentProcess, ref maxStringLength);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GUI.gui.ReportError(ex.Message);
+            }
+            return unsortedOutput;
+        }
+
         /// <summary>
         ///Takes a string, splits it by the char given and adds it to Dictionary UnsortedOutput. If cancelCurrentProcess == true, function aborts.
         /// </summary>
-
-        public void Parse(string toParse, char splitBy, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess)
+        private void Parse(string toParse, char splitBy, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess)
         {
             string[] sort = toParse.Split(splitBy);
 
@@ -27,12 +97,12 @@ namespace V4_e
                     AssignToUnsortedOutput(item, UnsortedOutput);
             }
         }
+
         /// <summary>
         ///Takes a string, splits it by the char given and adds it to Dictionary UnsortedOutput. If cancelCurrentProcess == true, function aborts.< /br>
         ///Additonally sets maxStringLength
         /// </summary>
-
-        public void Parse(string toParse, char splitBy, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess,  ref int maxStringLength)
+        private void Parse(string toParse, char splitBy, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess,  ref int maxStringLength)
         {
             string[] sort = toParse.Split(splitBy);
             

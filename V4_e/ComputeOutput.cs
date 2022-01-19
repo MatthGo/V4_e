@@ -11,37 +11,15 @@ namespace V4_e
         ///<para>Takes path to file and a cancel token. If cancelCurrentProcess == true, function aborts.<br /> 
         ///  Returns string[] with sorted and formated output.</para>
         ///</summary>
-        public static string[] GetOutput(string path, ref bool cancelCurrentProcess) {
-            
-            Dictionary<string, int> unsortedOutput = new Dictionary<string, int>();
+        public static string[] GetOutput(string path, ref bool cancelCurrentProcess)
+        {
             int maxStringLength = 0;
-            try
-            {
-                GUI.gui.SetProgressBarValue(0);
-                ParsingLogic parsingLogic = new ParsingLogic();
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(path, System.Text.Encoding.Default))
-                {
-                    System.IO.Stream baseStream = sr.BaseStream;
-                    long length = baseStream.Length;
+            var parsingLogic = new ParsingLogic();
 
-                    string toParse = String.Empty;
-
-                    while ((toParse = sr.ReadLine()) != null)
-                    {
-                        if (cancelCurrentProcess) { break; }                            
-
-                        GUI.gui.SetProgressBarValue(value: Convert.ToInt32((double)baseStream.Position / length * 100));
-                        parsingLogic.Parse(toParse, splitBy: ' ', unsortedOutput, ref cancelCurrentProcess, ref maxStringLength);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                GUI.gui.ReportError(ex.Message);
-            }
+            Dictionary<string, int> unsortedOutput = parsingLogic.ParseFile(path, splitBy: ' ',ref cancelCurrentProcess, ref maxStringLength);
 
             GUI.gui.SetprogressDefinition("Sorting...");
-            List<string> sortedOutput = new List<string>();
+            var sortedOutput = new List<string>();
             //sorting from unsorted Dictionary to sorted List holding lines (word, Occurrence)
             foreach (var entry in from entry in unsortedOutput orderby entry.Value descending select entry)
             {
@@ -53,7 +31,6 @@ namespace V4_e
                 GUI.gui.SetprogressDefinition("Cancelled");
             else
                 GUI.gui.SetprogressDefinition("Ready");
-            
 
             return sortedOutput.ToArray();
         }

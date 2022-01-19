@@ -94,7 +94,7 @@
             // progressDefinition
             // 
             this.progressDefinition.AutoSize = true;
-            this.progressDefinition.Location = new System.Drawing.Point(650, 719);
+            this.progressDefinition.Location = new System.Drawing.Point(648, 719);
             this.progressDefinition.Name = "progressDefinition";
             this.progressDefinition.Size = new System.Drawing.Size(40, 13);
             this.progressDefinition.TabIndex = 6;
