@@ -21,9 +21,10 @@ namespace V4_e
             InitializeComponent();
             gui = this;
             filePathBox.Text = @"C:\Users\MG\iCloudDrive\Documents\00 Privat\Code\test.txt";
+            progressDefinition.Text = String.Empty;
         }
         
-        private void openFolderButton_Click(object sender, EventArgs e)
+        private void OpenFolderButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -42,11 +43,11 @@ namespace V4_e
             }
             catch (Exception ex)
             {
-                reportError(ex.Message);
+                ReportError(ex.Message);
             }
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
             if (filePathBox.Text == String.Empty)
             {
@@ -66,33 +67,43 @@ namespace V4_e
                 return;
             }
 
-            setProgressBarValue(0);
-            setOutput(null);
+            SetProgressBarValue(0);
+            SetOutput(null);
             _cancelCurrentProcess = false;
-            lockStart();
-            setprogressDefinition("Parsing...");
-            _ = computeOutput();
+            LockStart();
+            SetprogressDefinition("Parsing...");
+            _ = ComputeOutput();
         }
 
-        private void cancellationButton_Click(object sender, EventArgs e)
+        private void CancellationButton_Click(object sender, EventArgs e)
         {
             _cancelCurrentProcess = true;
-            setProgressBarValue(0);
-            unlockStart();
+            SetProgressBarValue(0);
+            UnlockStart();
         }
 
-        private void exitButton_Click(object sender, EventArgs e){ Application.Exit(); }
+        private void ExitButton_Click(object sender, EventArgs e){ Application.Exit(); }
 
-        private async Task computeOutput() {
-            setOutput(await Task.Run(() => ComputeOutput.getOutput(path: filePathBox.Text, cancelCurrentProcess: ref _cancelCurrentProcess)));
-            unlockStart();
+        /// <summary>
+        /// Task to generate output and hand it over to output form.
+        /// </summary>
+        private async Task ComputeOutput() {
+            SetOutput(await Task.Run(() => V4_e.ComputeOutput.GetOutput(path: filePathBox.Text, cancelCurrentProcess: ref _cancelCurrentProcess)));
+            UnlockStart();
         }
 
-        private void lockStart() { _lockStart = true; }
-
-        private void unlockStart() { _lockStart = false; }
-
-        public void setProgressBarValue(int value)
+        /// <summary>
+        /// Locks the Start-Button
+        /// </summary>
+        private void LockStart() { _lockStart = true; }
+        /// <summary>
+        /// Unlocks the Start-Button
+        /// </summary>
+        private void UnlockStart() { _lockStart = false; }
+        /// <summary>
+        /// Sets Progress Bar Position
+        /// </summary>
+        public void SetProgressBarValue(int value)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
 
@@ -100,8 +111,10 @@ namespace V4_e
                 progressBar.Value = value;
             });
         }
-
-        public void setProgressBarMax(int value)
+        /// <summary>
+        /// Sets the Max of Progress Bar
+        /// </summary>
+        public void SetProgressBarMax(int value)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
 
@@ -109,8 +122,10 @@ namespace V4_e
                 progressBar.Maximum = value;
             });
         }
-
-        public void setprogressDefinition(string value)
+        /// <summary>
+        /// Sets the value for label progressDefinition
+        /// </summary>
+        public void SetprogressDefinition(string value)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
 
@@ -118,8 +133,10 @@ namespace V4_e
                 progressDefinition.Text = value;
             });
         }
-
-        public void setOutput(string[] value)
+        /// <summary>
+        /// Sets the value for outputForm
+        /// </summary>
+        public void SetOutput(string[] value)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
 
@@ -127,8 +144,10 @@ namespace V4_e
                 outputForm.Lines = value;
             });
         }
-
-        public void reportError(string error)
+        /// <summary>
+        /// Reports if a Exception occurs
+        /// </summary>
+        public void ReportError(string error)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
 

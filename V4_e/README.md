@@ -15,15 +15,14 @@ Program fulfill following conditions:
 *** Technical ***
 
 -	program reads an ANSI text file specified by user
--	words are seperated by char.(set splitBy when calling function) ==> function ParsingLogic.parse(..., char splitBy)
--	Class Parsinglogic
-	-	Call parse(string toParse, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess, char splitBy)
-	-	toParse: the String you want to Parse
-	-	UnsortedOutput: holds the result
-	-	cancelCurrentProcess: if true, function returns current result in UnsortedOutput
-	-	splitby: Define the Character the String is split by
-
+-	words are seperated by char.(set splitBy when calling function) ==> function ParsingLogic.parse(..., char splitBy, ...)
 -	Class ComputeOutput
-	-	call to get a array with strings ==> getOutput(string path, ref bool cancelCurrentProcess)
+	-	get array with sorted and formated strings ==> getOutput(string path, ref bool cancelCurrentProcess)
 	-	path: holds path to file
 	-	cancelCurrentProcess: if true, function returns current sorted result
+-	Class Parsinglogic
+	-	Parse(string toParse, char splitBy, Dictionary<string, int> UnsortedOutput, ref bool cancelCurrentProcess)
+	-	toParse: the String you want to Parse
+	-	UnsortedOutput: holds the result
+	-	cancelCurrentProcess: if true, function exits and returns current result
+	-	splitby: Define the Character the String is split by	
