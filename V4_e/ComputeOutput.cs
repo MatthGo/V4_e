@@ -62,7 +62,6 @@ namespace V4_e
         ///takes headA (Head of col A) and headB (Head of col B) as headline.
         ///Format of string depends on maxStringLength.
         ///</summary>
-
         private static void BuildHead(string headA, string headB, int maxStringLength, List<string> sortedOutput) {
             int paddingPartingLine = 2;
             sortedOutput.Insert(0, String.Empty.PadRight((maxStringLength + headA.Length + headB.Length + paddingPartingLine), '-'));

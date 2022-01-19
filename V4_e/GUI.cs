@@ -95,14 +95,19 @@ namespace V4_e
         /// <summary>
         /// Locks the Start-Button
         /// </summary>
+        /// 
         private void LockStart() { _lockStart = true; }
+
         /// <summary>
         /// Unlocks the Start-Button
         /// </summary>
+        /// 
         private void UnlockStart() { _lockStart = false; }
+
         /// <summary>
         /// Sets Progress Bar Position
         /// </summary>
+        /// 
         public void SetProgressBarValue(int value)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
@@ -111,9 +116,11 @@ namespace V4_e
                 progressBar.Value = value;
             });
         }
+
         /// <summary>
         /// Sets the Max of Progress Bar
         /// </summary>
+        /// 
         public void SetProgressBarMax(int value)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
@@ -122,6 +129,7 @@ namespace V4_e
                 progressBar.Maximum = value;
             });
         }
+
         /// <summary>
         /// Sets the value for label progressDefinition
         /// </summary>
@@ -133,6 +141,7 @@ namespace V4_e
                 progressDefinition.Text = value;
             });
         }
+
         /// <summary>
         /// Sets the value for outputForm
         /// </summary>
@@ -144,9 +153,11 @@ namespace V4_e
                 outputForm.Lines = value;
             });
         }
+
         /// <summary>
         /// Reports if a Exception occurs
         /// </summary>
+        /// 
         public void ReportError(string error)
         {
             if (!this.IsHandleCreated || this.IsDisposed) return;
