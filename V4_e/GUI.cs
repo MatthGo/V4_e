@@ -22,6 +22,7 @@ namespace V4_e
             gui = this;
             filePathBox.Text = @"C:\Users\MG\iCloudDrive\Documents\00 Privat\Code\test.txt";
             progressDefinition.Text = String.Empty;
+            outputForm.ReadOnly = true;
         }
         
         private void OpenFolderButton_Click(object sender, EventArgs e)
