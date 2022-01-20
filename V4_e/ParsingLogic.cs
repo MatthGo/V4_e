@@ -42,7 +42,6 @@ namespace V4_e
             {
                 GUI.gui.ReportError(ex.Message);
             }
-
             return unsortedOutput;
         }
 
@@ -116,7 +115,7 @@ namespace V4_e
                 {
                     AssignToUnsortedOutput(item, UnsortedOutput);
                     if (item.Length > maxStringLength) { maxStringLength = item.Length; }
-                                    }
+                }
             }
         }
 

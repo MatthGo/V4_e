@@ -7,7 +7,6 @@ namespace V4_e
 {
     public partial class GUI : Form
     {
-
         //Use Gui.gui and its functions, if you want to alter GUI items in another task.
         public static GUI gui = null;
 
@@ -19,8 +18,7 @@ namespace V4_e
         public GUI()
         {
             InitializeComponent();
-            gui = this;
-            filePathBox.Text = @"C:\Users\MG\iCloudDrive\Documents\00 Privat\Code\test.txt";
+            gui = this;         
             progressDefinition.Text = String.Empty;
             outputForm.ReadOnly = true;
         }
@@ -163,6 +161,10 @@ namespace V4_e
                 Console.WriteLine(error);
             });
         }
-        
+
+        private void filePathBox_Enter(object sender, EventArgs e)
+        {
+            filePathBox.SelectAll();
+        }
     }
 }
